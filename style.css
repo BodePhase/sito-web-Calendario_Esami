@@ -14,7 +14,10 @@ html,
     color: rgba(130,36,51) !important;
 }
 
-
+.text-start {
+    font-family: "Nunito Sans", sans-serif;
+    font-size: larger;
+}
 
 .border-sottile {
     border-color: rgba(130,36,51) !important;
@@ -30,11 +33,9 @@ html,
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.62);
 }
 
-.btn-sapienza {  
-    
+.btn-sapienza {      
     font-family: "Nunito Sans", sans-serif;
-    font-size: clamp(1rem, 2vw + 1rem, 1.2rem);
-   
+    font-size: clamp(1rem, 2vw + 1rem, 1.2rem);  
     background-color: hsl(351, 68%, 11%) !important;
     background-repeat: repeat-x;
     background-image: -o-linear-gradient(top, #d12741, #2f080e);
@@ -44,15 +45,12 @@ html,
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.62);
 }
 
-
 .menu,
 a,
 button{
   font-family: "Nunito Sans", sans-serif;
   font-size: clamp(1.1rem, 2vw + 1rem, 1.4rem);
   line-height: 1.55;
-  background: var(--bkg);
-  color: var(--text);
 }
 
 header {
@@ -83,7 +81,7 @@ header {
     color: rgba(130,36,51);
 }
 
-button{
+button {
     color: #fff;
     margin-left: 30px;
     padding: 9px 25px;
