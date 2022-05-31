@@ -1,0 +1,60 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "203012c018638ed628e5b10fe37ed80e",
+    "packages": [
+        {
+            "name": "rebasedata/php-client",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rebasedata/php-client.git",
+                "reference": "557b3197bd9843499d0308ea3f6e95c6e6ecc321"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rebasedata/php-client/zipball/557b3197bd9843499d0308ea3f6e95c6e6ecc321",
+                "reference": "557b3197bd9843499d0308ea3f6e95c6e6ecc321",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "ext-zip": "*",
+                "phpunit/phpunit": "^6.5"
+            },
+            "suggest": {
+                "ext-zip": "Allows compressed up- and downloads"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RebaseData\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "RebaseData API client for PHP",
+            "support": {
+                "issues": "https://github.com/rebasedata/php-client/issues",
+                "source": "https://github.com/rebasedata/php-client/tree/v1.0.6"
+            },
+            "time": "2020-04-10T21:20:27+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
