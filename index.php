@@ -45,7 +45,7 @@
   <!-- nav start --> 
   <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
     <div class="container">
-      <a class="navbar-brand advert-img me-2" href="https://www.uniroma1.it/it/pagina-strutturale/studenti"><img id="header_logo" class="logo" src="./img/Uniroma1.svg" height="90"  /></a>
+      <a class="navbar-brand advert-img me-2" href="https://www.uniroma1.it/it/pagina-strutturale/studenti"><img id="header_logo" class="logo" src="./images/Uniroma1.svg" height="90"  /></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -57,7 +57,7 @@
               <i id="theme_icon" class="fas fa-moon"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+            <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2" id="link-about" onclick="scrollSmoothTo('about')" href="#about">About</a>
@@ -88,7 +88,7 @@
       <form id="corsostudi-form" name="corsostudi-form" onsubmit="return validaFormUrl();" action="index.php" method="post" class="p-4 m-4 row shadow-sm rounded-3 border border-sottile text-font">
         <div class="form-group col-md-4 my-2 ">
           <label for="urlcorso">URL del calendario degli esami</label>
-          <img src="images/qmark.png" id="qmark" class="logo" alt="" height="20px" width="20px" style="margin-left: 5px;">
+          
           <style>label[for="qmark"]{font-size: 12px;}</style>
           <label for="qmark" id="qmark-label"></label>
           <input required autocomplete="off" id="urlcorso" name="urlcorso" type="url" class="form-control" placeholder="e.g., https://docs.google.com/spreadsheets/d...">
@@ -109,7 +109,7 @@
 
       <form id="recipe-form" class="p-4 m-4 row shadow-sm rounded-3 border border-sottile text-font">
       <div>
-        <img src="images/qmark.png" id="qmark2" class="logo" alt="" height="20px" width="20px" style="margin-left: 5px;">
+        
         <style>label[id="qmark-label2"]{font-size: 12px;}</style>
         <label id="qmark-label2"></label>
       </div>
@@ -158,7 +158,7 @@
   <section id="about">
   <div class="container">
   <div class="article__author">
-    <a href="https://github.com/BodePhase/sito-web-Calendario_Esami"><img src="./img/GitHub-Mark-Black.png" id="Github-logo" alt="Github logo" class="article__author--image"></a>
+    <a href="https://github.com/BodePhase/sito-web-Calendario_Esami"><img src="./images/GitHub-Mark-Black.png" id="Github-logo" alt="Github logo" class="article__author--image"></a>
     <div class="article__author--details text-bordo">
       <h3>Linguaggi e tecnologie per il Web 2021/2022</h3>
       <p><b>Massimiliano Favetta e Francesco Toccafondi</b></p>
@@ -182,13 +182,13 @@
         let path = (cssStyleSheet.href).substring((cssStyleSheet.href).length-9, (cssStyleSheet.href).length);
         if(path === "style.css") {
             cssStyleSheet.href = "style_dark.css";
-            document.getElementById("header_logo").src = "./img/Uniroma1.svg";
-            document.getElementById("Github-logo").src = "./img/GitHub-Mark-Light.png";
+            document.getElementById("header_logo").src = "./images/Uniroma1.svg";
+            document.getElementById("Github-logo").src = "./images/GitHub-Mark-Light.png";
             document.getElementById("theme_icon").className = "fas fa-sun";
         } else {
             cssStyleSheet.href = "style.css";
-            document.getElementById("header_logo").src = "./img/Uniroma1.svg";
-            document.getElementById("Github-logo").src = "./img/GitHub-Mark-Black.png";
+            document.getElementById("header_logo").src = "./images/Uniroma1.svg";
+            document.getElementById("Github-logo").src = "./images/GitHub-Mark-Black.png";
             document.getElementById("theme_icon").className = "fas fa-moon";
         }
     }
