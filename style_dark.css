@@ -1,0 +1,93 @@
+.page-content {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(45deg, rgb(0, 0, 0), #1f2833);
+}
+
+.auth-input {
+  background: rgba(54, 54, 54, 0.293);
+  border: none !important;
+  color: white;
+  box-shadow: none !important;
+}
+
+.auth-input:focus {
+  background: rgb(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+.btn-theme {
+  background-color: white !important;
+  color: black !important;
+  box-shadow: none !important;
+  
+}
+
+#navbar {
+  box-shadow: 4px 6px 12px rgba(0,0,0,0.4);
+  font-family: "Nunito Sans", sans-serif;
+  font-size: clamp(1.1rem, 2vw + 1rem, 1.4rem);
+  line-height: 1.55; 
+}
+
+.nav-item .active {
+  border-radius: 8px;
+  color: #fff !important;
+  
+}
+
+#navbar .nav-item {
+  margin : auto 4px;
+}
+
+#navbar a {
+  color: rgb(255, 255, 255);
+  padding-left:12px;
+  padding-right:12px;
+}
+
+#navbar .dropdown-menu {
+  background : #545454
+}
+a.navbar-brand {
+  color: #454545
+}
+
+.text-font {
+  font-weight: bold;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: clamp(1.1rem, 2vw + 1rem, 1.4rem);
+  line-height: 1.55;
+  color: rgba(130,36,51) !important;
+}
+
+.text-start {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: larger;
+  
+}
+
+.bg-esame{
+  background: linear-gradient(45deg, rgb(0, 0, 0), #1f2833);
+  color: #999;
+ 
+}
+
+.border-sapienza {  
+  background-color: hsl(351, 68%, 11%) !important;
+  background-repeat: repeat-x;
+  background-image: -o-linear-gradient(top, #d12741, #2f080e);
+  background-image: linear-gradient(#d12741, #2f080e);
+  border-color: #2f080e #2f080e hsl(351, 68%, 1.5%);
+  color: #fff !important; 
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.62);
+}
+
+.btn-sapienza:hover {      
+  background: rgb(110, 4, 22);
+  color: white;
+}
+
+.text-bordo{
+  color: #999;
+}

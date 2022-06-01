@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<body lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendario Esami</title>
+  <!-- Bootstrap 5 CDN-Import: -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">  <link rel="stylesheet" type="text/css" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.2.9/purify.min.js"></script>
+  <!-- DOMPurify: -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.6/purify.min.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Light-Theming: -->
+  <link id="mainStyle" rel="stylesheet" href="style.css">
   <script src="//code.jquery.com/jquery-3.6.0.js"></script>
   <script defer src="./app.js"></script>
   <script>
@@ -35,35 +41,50 @@
 </head>
 
 <body>
-  <header>
-      <img src="./images/Uniroma1.svg" class="logo" alt="Logo Universita' Sapienza" width="250">
-        <nav>
-          <ul class="menu">
-            <li>
-              <a href="index.php">Home</a>
-            </li>
-            <li>
-              <a href="#">About</a>
-            </li>
-            <li>
-              <a id="calendar" href="#">Calendario</a>
-            </li>
-          </ul>
-        </nav>
-      <button><a href="./database/login/index.html">Login</a></button>
-  </header>
+  <div class="page-content">
+  <!-- nav start --> 
+  <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+    <div class="container">
+      <a class="navbar-brand advert-img me-2" href="https://www.uniroma1.it/it/pagina-strutturale/studenti"><img id="header_logo" class="logo" src="./img/Uniroma1.svg" height="90"  /></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">  
+          <li class="nav-item my-2 d-flex align-items-center">
+            <a class="nav-link mx-2 btn btn-theme" id="theme_button" onclick="onThemeChange()">
+              <i id="theme_icon" class="fas fa-moon"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" id="link-about" onclick="scrollSmoothTo('about')" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="#">Calendario</a>
+          </li>
+          <li class="nav-item my-2 d-flex align-items-center">
+           <a class="nav-link mx-2 active btn btn-sapienza px-3" type="button" href="./login/login.html" ><i class="fa fa-sign-in fa-fw mr-2"></i> Login</a>
+          </li> 
+        </ul>      
+      </div>
+    </div>
+  </nav>  
+  <!-- nav end -->
   <div id="corpo">
   <header>
     <div class="container text-center">
       <div class="row m-4">
-        <h1 class="text-titolo display-4 fw-normals">Calendario Esami</h1>
-        <p class="fs-5 text-muted ">Aggiungi gli esami a cui sei interessato durante la sessione.</p>
+        <h1 class="text-titolo display-4">Calendario Esami</h1>
+        <p class="fs-4 text-muted ">Aggiungi gli esami a cui sei interessato durante la sessione.</p>
       </div>
     </div>
   </header>
     <main>
     <div class="container">
-      
+      <!-- form -->
       <form id="corsostudi-form" name="corsostudi-form" onsubmit="return validaFormUrl();" action="index.php" method="post" class="p-4 m-4 row shadow-sm rounded-3 border border-sottile text-font">
         <div class="form-group col-md-4 my-2 ">
           <label for="urlcorso">URL del calendario degli esami</label>
@@ -92,34 +113,35 @@
         <style>label[id="qmark-label2"]{font-size: 12px;}</style>
         <label id="qmark-label2"></label>
       </div>
-        <div class="form-group col-md-4 my-2 ">
+      <div class="form-group col-md-4 my-2 ">
           <label for="esame">Esame</label>
-          <input required autocomplete="off" type="text" id="esame" placeholder="e.g., Linguaggi e tecnologie per il web" class="form-control" >
-        </div>
-        <div class="form-group col-md-4 my-2">
-          <label for="canale">Canale</label>
-          <input autocomplete="off" type="text" id="canale" placeholder="e.g., Canale 1" class="form-control" >
-        </div>
-        <div class="form-group col-md-4 my-2">
-          <label for="professore">Professore</label>
-          <input required autocomplete="off" type="text" id="professore" placeholder="e.g.,Riccardo Rosati (rosati@diag.uniroma1.it)" class="form-control" >
+          <input required autocomplete="off" type="text" id="esame" class="form-control auth-input" placeholder="e.g., Linguaggi e tecnologie per il web">
         </div>
         <div class="form-group col-md-4 my-2 ">
           <label for="data">Data</label>
-          <input required autocomplete="off" type="text" id="data" placeholder="e.g., 25/07/2022" class="form-control" >
+          <input required autocomplete="off" type="text" id="data" class="form-control auth-input" placeholder="e.g., 01/06/2022">
         </div>
         <div class="form-group col-md-4 my-2">
           <label for="posizione">Posizione</label>
-          <input required autocomplete="off" type="text" id="posizione" placeholder="e.g., Via Ariosto, 25" class="form-control" >
+          <input required autocomplete="off" type="text" id="posizione" class="form-control auth-input" placeholder="e.g., Telematica">
         </div>
         <div class="form-group col-md-4 my-2">
-          <label for="note">Note (opzionali)</label>
-          <input autocomplete="off" type="text" id="note" class="form-control">
+          <label for="professore">Professore</label>
+          <input required autocomplete="off" type="text" id="professore" class="form-control auth-input" placeholder="e.g.,Riccardo Rosati">
+        </div>
+        <div class="form-group col-md-4 my-2">
+          <label for="canale">Canale</label>
+          <input required autocomplete="off" type="text" id="canale" class="form-control auth-input" placeholder="e.g., Canale 1">
+        </div>
+        <div class="form-group col-md-4 my-2">
+          <label for="note">Note</label>
+          <input autocomplete="off" type="text" id="note" class="form-control auth-input">
         </div>
         <div class="form-group mt-4">
-          <input type="submit" value="Aggiungi Esame Specifico" class="btn btn-sapienza">
+          <input type="submit" value="Aggiungi Esame" class="btn btn-sapienza">
         </div>
       </form>
+      <!-- form end -->
 
       <div class="container">
         <div class="row m-4 border-bottom border-3 border-sottile">
@@ -130,9 +152,50 @@
       <div class="row row-cols-1 row-cols-md-3 mx-4 my-6 text-center" id="recipe-container">
       </div>
     </div>
-  </main>
+    </main>
+  <br>
+  <br>
+  <section id="about">
+  <div class="container">
+  <div class="article__author">
+    <a href="https://github.com/BodePhase/sito-web-Calendario_Esami"><img src="./img/GitHub-Mark-Black.png" id="Github-logo" alt="Github logo" class="article__author--image"></a>
+    <div class="article__author--details text-bordo">
+      <h3>Linguaggi e tecnologie per il Web 2021/2022</h3>
+      <p><b>Massimiliano Favetta e Francesco Toccafondi</b></p>
+      <p >Progetto sviluppato per il corso di Linguaggi e tecnologie per il Web 2021/2022 del corso di laurea in Ingegneria Informatica e Automatica della Università di Roma La Sapienza.</p>    
+    </div>
   </div>
+</div>
+</section>
 
+<!-- Footer -->
+<footer>
+    <div class="text-center p-4 text-bordo">
+      © Linguaggi e tecnologie per il Web 2021/2022 
+     <div>
+</footer>
+
+</div>  
+  <script type="text/javascript">
+    function onThemeChange() {
+        let cssStyleSheet = document.getElementById("mainStyle");
+        let path = (cssStyleSheet.href).substring((cssStyleSheet.href).length-9, (cssStyleSheet.href).length);
+        if(path === "style.css") {
+            cssStyleSheet.href = "style_dark.css";
+            document.getElementById("header_logo").src = "./img/Uniroma1.svg";
+            document.getElementById("Github-logo").src = "./img/GitHub-Mark-Light.png";
+            document.getElementById("theme_icon").className = "fas fa-sun";
+        } else {
+            cssStyleSheet.href = "style.css";
+            document.getElementById("header_logo").src = "./img/Uniroma1.svg";
+            document.getElementById("Github-logo").src = "./img/GitHub-Mark-Black.png";
+            document.getElementById("theme_icon").className = "fas fa-moon";
+        }
+    }
+  </script>
+  <!-- Bootstrap 5 JS-Bundle CDN import: -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  
 <?php
 error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE); 
 
