@@ -50,7 +50,7 @@ $service = new Google\Service\Calendar($client);
 
 $calendarList = $service->calendarList->listCalendarList();
 
-$event = new Google\Service\Calendar\Event(array(
+/* $event = new Google\Service\Calendar\Event(array(
     'summary' => 'Test Event',
     'description' => 'Test Event',
     'start' => array(
@@ -63,7 +63,42 @@ $event = new Google\Service\Calendar\Event(array(
   
   $calendarId = 'jubhm5mu5pcqg17t9hpi4744l0@group.calendar.google.com';
   $event = $service->events->insert($calendarId, $event);
-  printf('Event created: %s\n', $event->htmlLink);
+  printf('Event created: %s\n', $event->htmlLink); */
+
+$calendarId = 'jubhm5mu5pcqg17t9hpi4744l0@group.calendar.google.com';
+
+
+$dbconn = pg_connect ( " host = localhost port =5433
+dbname = postgres user = postgres password = password " )
+or die ( ' Could not connect : ' . pg_last_error ());
+$query = ' SELECT * FROM esami ';
+$result = pg_query ( $query ) or die ( ' Query failed : ' . pg_last_error ());
+while ( $line = pg_fetch_array ( $result , null , PGSQL_ASSOC )) {
+  $pattern="/\//";
+  $data = preg_replace ($pattern,"-", $line["data_esame"]);
+  $pattern="/ */";
+  $data = preg_replace ($pattern,"",$data);
+  $data = substr($data, 5);
+  $year = date("d", strtotime($data));
+  $month = date("m", strtotime($data));
+  $day = date("y", strtotime($data));
+  
+    $event = new Google\Service\Calendar\Event(array(
+      'summary' => $line["esame"],
+      'description' => "Aula: ".$line["posizione"].". Professore: ".$line["professore"],
+      'start' => array(
+        'dateTime' => '20'.$year."-".$month."-".$day.'T09:00:00-07:00'
+      ),
+      'end' => array(
+        'dateTime' => '20'.$year."-".$month."-".$day.'T09:00:00-07:00'
+      )
+    ));
+    try{$event = $service->events->insert($calendarId, $event);}catch(Exception $e){
+      //do nothing
+    }
+}
+pg_free_result ( $result );
+pg_close ( $dbconn );
 ?>
 </body>
 </html>

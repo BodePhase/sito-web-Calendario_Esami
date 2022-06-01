@@ -83,14 +83,6 @@ function validaFormUrl(e){
   return true;
 }
 
-function prova(arr){
-  array.forEach(element => {
-    element.forEach(key => {
-    alert(element[key]);
-    });
-  });
-}
-
 // EVENT LISTENERS
 recipeForm.addEventListener('submit', handleFormSubmit);
 recipeContainer.addEventListener('refreshRecipes', displayRecipes);

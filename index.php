@@ -94,33 +94,23 @@
       </div>
         <div class="form-group col-md-4 my-2 ">
           <label for="esame">Esame</label>
-          <select required autocomplete="off" type="text" id="esame" placeholder="e.g., Linguaggi e tecnologie per il web" class="form-select" >
-            <option value="vuoto" selected></option>
-          </select>
+          <input required autocomplete="off" type="text" id="esame" placeholder="e.g., Linguaggi e tecnologie per il web" class="form-control" >
         </div>
         <div class="form-group col-md-4 my-2">
           <label for="canale">Canale</label>
-          <select autocomplete="off" type="text" id="canale" placeholder="e.g., Canale 1" class="form-select" >
-            <option value="vuoto" selected></option>
-          </select>
+          <input autocomplete="off" type="text" id="canale" placeholder="e.g., Canale 1" class="form-control" >
         </div>
         <div class="form-group col-md-4 my-2">
           <label for="professore">Professore</label>
-          <select required autocomplete="off" type="text" id="professore" placeholder="e.g.,Riccardo Rosati (rosati@diag.uniroma1.it)" class="form-select" >
-            <option value="vuoto" selected></option>
-          </select>
+          <input required autocomplete="off" type="text" id="professore" placeholder="e.g.,Riccardo Rosati (rosati@diag.uniroma1.it)" class="form-control" >
         </div>
         <div class="form-group col-md-4 my-2 ">
           <label for="data">Data</label>
-          <select required autocomplete="off" type="text" id="data" placeholder="e.g., 25/07/2022" class="form-select" >
-            <option value="vuoto" selected></option>
-          </select>
+          <input required autocomplete="off" type="text" id="data" placeholder="e.g., 25/07/2022" class="form-control" >
         </div>
         <div class="form-group col-md-4 my-2">
           <label for="posizione">Posizione</label>
-          <select required autocomplete="off" type="text" id="posizione" placeholder="e.g., Via Ariosto, 25" class="form-select" >
-            <option value="vuoto" selected></option>
-          </select>
+          <input required autocomplete="off" type="text" id="posizione" placeholder="e.g., Via Ariosto, 25" class="form-control" >
         </div>
         <div class="form-group col-md-4 my-2">
           <label for="note">Note (opzionali)</label>
@@ -144,6 +134,8 @@
   </div>
 
 <?php
+error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE); 
+
 //googlesheet
 require __DIR__ . '/googlesheets/quickstart/vendor/autoload.php';
 
@@ -530,11 +522,6 @@ pg_close ( $dbconn ); */
 }
 
 ?>
-<script>
-  alert("in script post php");
-  var esami= "<?php echo $to_insert; ?>";
-</script>
-
 </body>
 
 </html>
