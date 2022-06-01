@@ -27,7 +27,9 @@
         $("#qmark-label2").hide();
       });
 
-
+      $("#calendar").click(function(){
+        $("#corpo").load("/googlecalendar/calendar.php");
+      });
     });
   </script>
 </head>
@@ -44,12 +46,13 @@
               <a href="#">About</a>
             </li>
             <li>
-              <a href="#">Calendario</a>
+              <a id="calendar" href="#">Calendario</a>
             </li>
           </ul>
         </nav>
       <button><a href="./database/login/index.html">Login</a></button>
   </header>
+  <div id="corpo">
   <header>
     <div class="container text-center">
       <div class="row m-4">
@@ -95,6 +98,18 @@
             <option value="vuoto" selected></option>
           </select>
         </div>
+        <div class="form-group col-md-4 my-2">
+          <label for="canale">Canale</label>
+          <select autocomplete="off" type="text" id="canale" placeholder="e.g., Canale 1" class="form-select" >
+            <option value="vuoto" selected></option>
+          </select>
+        </div>
+        <div class="form-group col-md-4 my-2">
+          <label for="professore">Professore</label>
+          <select required autocomplete="off" type="text" id="professore" placeholder="e.g.,Riccardo Rosati (rosati@diag.uniroma1.it)" class="form-select" >
+            <option value="vuoto" selected></option>
+          </select>
+        </div>
         <div class="form-group col-md-4 my-2 ">
           <label for="data">Data</label>
           <select required autocomplete="off" type="text" id="data" placeholder="e.g., 25/07/2022" class="form-select" >
@@ -104,18 +119,6 @@
         <div class="form-group col-md-4 my-2">
           <label for="posizione">Posizione</label>
           <select required autocomplete="off" type="text" id="posizione" placeholder="e.g., Via Ariosto, 25" class="form-select" >
-            <option value="vuoto" selected></option>
-          </select>
-        </div>
-        <div class="form-group col-md-4 my-2">
-          <label for="professore">Professore (mail)</label>
-          <select required autocomplete="off" type="text" id="professore" placeholder="e.g.,Riccardo Rosati (rosati@diag.uniroma1.it)" class="form-select" >
-            <option value="vuoto" selected></option>
-          </select>
-        </div>
-        <div class="form-group col-md-4 my-2">
-          <label for="canale">Canale</label>
-          <select autocomplete="off" type="text" id="canale" placeholder="e.g., Canale 1" class="form-select" >
             <option value="vuoto" selected></option>
           </select>
         </div>
@@ -138,10 +141,13 @@
       </div>
     </div>
   </main>
+  </div>
 
 <?php
 //googlesheet
 require __DIR__ . '/googlesheets/quickstart/vendor/autoload.php';
+
+use Google\Service\CloudBuild\Warning;
 use Google\Service\Dfareporting\Resource\Files;
 //excel
 require './excel/vendor/autoload.php';
@@ -222,8 +228,7 @@ $spreadsheetId = $postUrl;
 $sheet_metadata = $service->spreadsheets->get($spreadsheetId);
 $sheets = $sheet_metadata->getSheets();
 $title = $sheets[0]->getProperties()->getTitle();
-$range = $title;
-echo $range;
+$range = $title; //per leggere l'intero sheet
 $response = $service->spreadsheets_values->get($spreadsheetId, $range);
 $values = $response->getValues();
 
@@ -243,11 +248,23 @@ if (empty($values)) {
     $controllo_header=false; //per cominciare ad acquisire valori dopo l'header del file
     //$to_insert=array();
     foreach ($values as $row) {
+      //inizializzazioni
           $line1=array();
           $line2=array();
           $line3=array();
+          $line1["esame"]=null;
+          $line2["esame"]=null;
+          $line3["esame"]=null;
+          $line1["posizione"]=null;
+          $line1["data_esame"]=null;
+          $line2["data_esame"]=null;
+          $line3["data_esame"]=null;
+          //per quelli che non hanno canale
+          $line1["canale"]=null;
+          $line2["canale"]=null;
+          $line3["canale"]=null;
         foreach ($row as $key=>$value) {
-          if($value=="PRIMO ANNO" || $value=="" || $value==null){
+          if($value=="PRIMO ANNO" || $value=="SECONDO ANNO" || $value=="TERZO ANNO" || $value=="" || $value==null){
             break;
           }
           
@@ -257,28 +274,28 @@ if (empty($values)) {
               $line2["esame"]=$value;
               $line3["esame"]=$value;
             }
-            elseif($key==$icanale){
+            if($key==$icanale){
               $line1["canale"]=$value;
               $line2["canale"]=$value;
               $line3["canale"]=$value;
             }
-            elseif($key==$iprof){
+            if($key==$iprof){
               $line1["professore"]=$value;
               $line2["professore"]=$value;
               $line3["professore"]=$value;
             }
-            elseif($key==$ipos){
+            if($key==$ipos){
               $line1["posizione"]=$value;
               $line2["posizione"]=$value;
               $line3["posizione"]=$value;
             }
-            elseif($key==$idata1){
+            if($key==$idata1){
               $line1["data_esame"]=$value;
             }
-            elseif($key==$idata2){
+            if($key==$idata2){
               $line2["data_esame"]=$value;
             }
-            elseif($key==$idata3){
+            if($key==$idata3){
               $line3["data_esame"]=$value;
             }
           }
@@ -286,14 +303,14 @@ if (empty($values)) {
             $iesame=$key;
             $fineheader=true;
           }
-          elseif($value=="CAN." || $value=="CAN" || $value=="CANALE"){
+          if($fineheader){
+          if($value=="CAN." || $value=="CAN" || $value=="CANALE"){
             $icanale=$key;
           }
-          elseif($value=="DOCENTE"){
+          if($value=="DOCENTE"){
             $iprof=$key;
           }
-          elseif($value=="DATA" || strpos($value,"MAG") || strpos($value,"GIU") ||
-                strpos($value,"LUG") || strpos($value,"SET")){
+          if($value=="DATA" || strpos($value,"MAGGIO")!=false || strpos($value,"GIUGNO")!=false || strpos($value,"LUGLIO")!=false || strpos($value,"SETTEMBRE")!=false){
             if($value=="DATA"){
               if($idata1==-1){
                 $idata1=$key;
@@ -306,10 +323,10 @@ if (empty($values)) {
               }
             }
             else{
-              if(strpos($value,"MAG") || strpos($value,"GIU")){
+              if(strpos($value,"MAGGIO")!=false || strpos($value,"GIUGNO")!=false){
                 $idata1=$key;
               }
-              elseif(strpos($value,"GIU")){
+              elseif(strpos($value,"LUGLIO")!=false){
                 $idata2=$key;
               }
               else{
@@ -320,16 +337,27 @@ if (empty($values)) {
           if($value=="AULA"){
             $ipos=$key;
           }
+        }
       }
       if($fineheader){
         $controllo_header=true;
       }
-      if($icanale==-1){
-        $line1["canale"]=null;
-        $line2["canale"]=null;
-        $line3["canale"]=null;
+      //controlli vari
+      if($line1["esame"]!=null && $line1["posizione"]==null){
+        $line1["posizione"]="da definire";
+        $line2["posizione"]="da definire";
+        $line3["posizione"]="da definire";
       }
-      if($line1!=null){
+      if($line1["esame"]!=null && $line1["data_esame"]==null){
+        $line1["data_esame"]="da definire";
+      }
+      if($line2["esame"]!=null && $line2["data_esame"]==null){
+        $line2["data_esame"]="da definire";
+      }
+      if($line3["esame"]!=null && $line3["data_esame"]==null){
+        $line3["data_esame"]="da definire";
+      }
+      if($line1["esame"]!=null){
         array_push($to_insert,$line1,$line2,$line3);
       }
     }
@@ -347,95 +375,118 @@ foreach ($tables as $table) {
 
   $values = $table->getRowsIterator();
   foreach ($values as $row) {
+    //inizializzazioni
     $line1=array();
-          $line2=array();
-          $line3=array();
-        foreach ($row as $key=>$value) {
-          if($value=="PRIMO ANNO" || $value=="" || $value==null){
-            break;
-          }
-          
-          if($controllo_header){
-            if($key==$iesame){
-              $line1["esame"]=$value;
-              $line2["esame"]=$value;
-              $line3["esame"]=$value;
-            }
-            elseif($key==$icanale){
-              $line1["canale"]=$value;
-              $line2["canale"]=$value;
-              $line3["canale"]=$value;
-            }
-            elseif($key==$iprof){
-              $line1["professore"]=$value;
-              $line2["professore"]=$value;
-              $line3["professore"]=$value;
-            }
-            elseif($key==$ipos){
-              $line1["posizione"]=$value;
-              $line2["posizione"]=$value;
-              $line3["posizione"]=$value;
-            }
-            elseif($key==$idata1){
-              $line1["data_esame"]=$value;
-            }
-            elseif($key==$idata2){
-              $line2["data_esame"]=$value;
-            }
-            elseif($key==$idata3){
-              $line3["data_esame"]=$value;
-            }
-          }
-          if($value=="INSEGNAMENTO"){
-            $iesame=$key;
-            $fineheader=true;
-          }
-          elseif($value=="CAN." || $value=="CAN" || $value=="CANALE"){
-            $icanale=$key;
-          }
-          elseif($value=="DOCENTE"){
-            $iprof=$key;
-          }
-          elseif($value=="DATA" || strpos($value,"MAG") || strpos($value,"GIU") ||
-                strpos($value,"LUG") || strpos($value,"SET")){
-            if($value=="DATA"){
-              if($idata1==-1){
-                $idata1=$key;
-              }
-              elseif($idata2==-1){
-                $idata2=$key;
-              }
-              else{
-                $idata3=$key;
-              }
-            }
-            else{
-              if(strpos($value,"MAG") || strpos($value,"GIU")){
-                $idata1=$key;
-              }
-              elseif(strpos($value,"GIU")){
-                $idata2=$key;
-              }
-              else{
-                $idata3=$key;
-              }
-            }
-          }
-          if($value=="AULA"){
-            $ipos=$key;
-          }
+    $line2=array();
+    $line3=array();
+    $line1["esame"]=null;
+    $line2["esame"]=null;
+    $line3["esame"]=null;
+    $line1["posizione"]=null;
+    $line1["data_esame"]=null;
+    $line2["data_esame"]=null;
+    $line3["data_esame"]=null;
+    //per quelli che non hanno canale
+    $line1["canale"]=null;
+    $line2["canale"]=null;
+    $line3["canale"]=null;
+  foreach ($row as $key=>$value) {
+    if($value=="PRIMO ANNO" || $value=="SECONDO ANNO" || $value=="TERZO ANNO" || $value=="" || $value==null){
+      break;
+    }
+    
+    if($controllo_header){
+      if($key==$iesame){
+        $line1["esame"]=$value;
+        $line2["esame"]=$value;
+        $line3["esame"]=$value;
       }
-      if($fineheader){
-        $controllo_header=true;
+      if($key==$icanale){
+        $line1["canale"]=$value;
+        $line2["canale"]=$value;
+        $line3["canale"]=$value;
       }
-      if($icanale==-1){
-        $line1["canale"]=null;
-        $line2["canale"]=null;
-        $line3["canale"]=null;
+      if($key==$iprof){
+        $line1["professore"]=$value;
+        $line2["professore"]=$value;
+        $line3["professore"]=$value;
       }
-      if($line1!=null){
-        array_push($to_insert,$line1,$line2,$line3);
+      if($key==$ipos){
+        $line1["posizione"]=$value;
+        $line2["posizione"]=$value;
+        $line3["posizione"]=$value;
       }
+      if($key==$idata1){
+        $line1["data_esame"]=$value;
+      }
+      if($key==$idata2){
+        $line2["data_esame"]=$value;
+      }
+      if($key==$idata3){
+        $line3["data_esame"]=$value;
+      }
+    }
+    if($value=="INSEGNAMENTO"){
+      $iesame=$key;
+      $fineheader=true;
+    }
+    if($fineheader){
+    if($value=="CAN." || $value=="CAN" || $value=="CANALE"){
+      $icanale=$key;
+    }
+    if($value=="DOCENTE"){
+      $iprof=$key;
+    }
+    if($value=="DATA" || strpos($value,"MAGGIO")!=false || strpos($value,"GIUGNO")!=false || strpos($value,"LUGLIO")!=false || strpos($value,"SETTEMBRE")!=false){
+      if($value=="DATA"){
+        if($idata1==-1){
+          $idata1=$key;
+        }
+        elseif($idata2==-1){
+          $idata2=$key;
+        }
+        else{
+          $idata3=$key;
+        }
+      }
+      else{
+        if(strpos($value,"MAGGIO")!=false || strpos($value,"GIUGNO")!=false){
+          $idata1=$key;
+        }
+        elseif(strpos($value,"LUGLIO")!=false){
+          $idata2=$key;
+        }
+        else{
+          $idata3=$key;
+        }
+      }
+    }
+    if($value=="AULA"){
+      $ipos=$key;
+    }
+  }
+}
+if($fineheader){
+  $controllo_header=true;
+}
+//controlli vari
+if($line1["esame"]!=null && $line1["posizione"]==null){
+  $line1["posizione"]="da definire";
+  $line2["posizione"]="da definire";
+  $line3["posizione"]="da definire";
+}
+if($line1["esame"]!=null && $line1["data_esame"]==null){
+  $line1["data_esame"]="da definire";
+}
+if($line2["esame"]!=null && $line2["data_esame"]==null){
+  $line2["data_esame"]="da definire";
+}
+if($line3["esame"]!=null && $line3["data_esame"]==null){
+  $line3["data_esame"]="da definire";
+}
+if($line1["esame"]!=null){
+  array_push($to_insert,$line1,$line2,$line3);
+}
   }
 }
   }
@@ -445,15 +496,19 @@ $dbconn = pg_connect ( " host = localhost port =5433
 dbname = postgres user = postgres password = password " )
 or die ( ' Could not connect : ' . pg_last_error ());
 foreach($to_insert as $v){
-$query = "INSERT INTO esami VALUES ('$v[esame]','$v[data_esame]','$v[posizione]','$v[professore]',$v[canale])";
+  try{
+$query = "INSERT INTO esami VALUES ('$v[esame]','$v[data_esame]','$v[posizione]','$v[professore]','$v[canale]')";
 $res = pg_query($query); 
 if (!$res) {
-  echo "error db\n";
+  //echo "error db\n";
 } 
+  }catch(Warning $w){
+    //do nothing
+  }
 }
 pg_close ( $dbconn );
 
-$dbconn = pg_connect ( " host = localhost port =5433
+/* $dbconn = pg_connect ( " host = localhost port =5433
 dbname = postgres user = postgres password = password " )
 or die ( ' Could not connect : ' . pg_last_error ());
 $query = ' SELECT * FROM esami ';
@@ -469,12 +524,16 @@ echo " \t </ tr >\ n " ;
 }
 echo " </ table >\ n " ;
 pg_free_result ( $result );
-pg_close ( $dbconn );
+pg_close ( $dbconn ); */
 
 
 }
 
 ?>
+<script>
+  alert("in script post php");
+  var esami= "<?php echo $to_insert; ?>";
+</script>
 
 </body>
 
