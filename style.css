@@ -35,30 +35,12 @@
 .btn-sapienza {      
     font-family: "Nunito Sans", sans-serif;
     font-size: clamp(1rem, 2vw + 1rem, 1.2rem);  
-<<<<<<< Updated upstream
-    background-color: hsl(351, 68%, 11%) !important;
-    background-repeat: repeat-x;
-    background-image: -o-linear-gradient(top, #d12741, #2f080e);
-    background-image: linear-gradient(#d12741, #2f080e);
-    border-color: #2f080e #2f080e hsl(351, 68%, 1.5%);
-=======
     background: rgba(130,36,51);
->>>>>>> Stashed changes
     color: #fff !important; 
 }
-<<<<<<< Updated upstream
-
-.menu,
-a,
-button{
-  font-family: "Nunito Sans", sans-serif;
-  font-size: clamp(1.1rem, 2vw + 1rem, 1.4rem);
-  line-height: 1.55;
-=======
 .btn-sapienza:hover {      
     background: rgb(110, 4, 22);
     color: white;
->>>>>>> Stashed changes
 }
 
 header {
@@ -109,24 +91,11 @@ header {
   color: white !important;
   box-shadow: none !important;
 }
-<<<<<<< Updated upstream
-
-button {
-    color: #fff;
-    margin-left: 30px;
-    padding: 9px 25px;
-    background: rgba(130,36,51);
-    border:none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all .3s ease;
-=======
   
 .page-content {
   width: 100%;
   min-height: 100vh;
   background: linear-gradient(45deg, rgb(230, 230, 230), white);
->>>>>>> Stashed changes
 }
   
 .logo{
