@@ -36,10 +36,10 @@ function displayRecipes(){
   const tempString = listItems.map(item => `
     <div class="col">
       <div class="card mb-4 rounded-3 shadow-sm border-sottile">
-        <div class="card-header py-3 text-white bg-primary border-sapienza">
+        <div class="card-header py-3 text-white border-sapienza">
           <h4 class="my-0">${item.esame}</h4>
         </div>
-        <div class="card-body">
+        <div class="card-body bg-esame">
           <ul class="text-start">
             <li><strong>Data: </strong>${item.data}</li>
             <li><strong>Posizione: </strong>${item.posizione}</li>

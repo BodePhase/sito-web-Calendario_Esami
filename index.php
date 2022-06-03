@@ -49,7 +49,6 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
       <div class=" collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto">  
           <li class="nav-item my-2 d-flex align-items-center">
@@ -63,7 +62,7 @@
             <a class="nav-link mx-2" id="link-about" onclick="scrollSmoothTo('about')" href="#about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" href="#">Calendario</a>
+            <a class="nav-link mx-2" href="./googlecalendar/calendar.php">Calendario</a>
           </li>
           <li class="nav-item my-2 d-flex align-items-center">
            <a class="nav-link mx-2 active btn btn-sapienza px-3" type="button" href="./login/login.html" ><i class="fa fa-sign-in fa-fw mr-2"></i> Login</a>
@@ -87,33 +86,24 @@
       <!-- form -->
       <form id="corsostudi-form" name="corsostudi-form" onsubmit="return validaFormUrl();" action="index.php" method="post" class="p-4 m-4 row shadow-sm rounded-3 border border-sottile text-font">
         <div class="form-group col-md-4 my-2 ">
-          <label for="urlcorso">URL del calendario degli esami</label>
-          
-          <style>label[for="qmark"]{font-size: 12px;}</style>
-          <label for="qmark" id="qmark-label"></label>
-          <input required autocomplete="off" id="urlcorso" name="urlcorso" type="url" class="form-control" placeholder="e.g., https://docs.google.com/spreadsheets/d...">
+          <label for="urlcorso">URL calendario esami</label>
+          <input required autocomplete="off" id="urlcorso" name="urlcorso" type="url" class="form-control auth-input" placeholder="e.g., https://docs.google.com/spreadsheets/d...">
         </div>
         <div class="form-group col-md-4 my-2 ">
           <label for="urltype">Tipo del file</label>
           <br/>
-          <select name="urltype" id="urltype" class="form-select" >
+          <select name="urltype" id="urltype" class="form-select auth-input" >
             <option value="vuoto" selected></option>  
             <option value="sheet">Google Sheet</option>  
             <option value="excel">Excel</option>  
           </select>  
         </div>
         <div class="form-group mt-4">
-          <input type="submit" value="Aggiungi Esami Del Tuo Corso" class="btn btn-sapienza">
+          <input type="submit" value="Aggiungi calendario" class="btn btn-sapienza">
         </div>
       </form>
-
       <form id="recipe-form" class="p-4 m-4 row shadow-sm rounded-3 border border-sottile text-font">
-      <div>
-        
-        <style>label[id="qmark-label2"]{font-size: 12px;}</style>
-        <label id="qmark-label2"></label>
-      </div>
-      <div class="form-group col-md-4 my-2 ">
+        <div class="form-group col-md-4 my-2 ">
           <label for="esame">Esame</label>
           <input required autocomplete="off" type="text" id="esame" class="form-control auth-input" placeholder="e.g., Linguaggi e tecnologie per il web">
         </div>
