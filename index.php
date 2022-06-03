@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Light-Theming: -->
   <link id="mainStyle" rel="stylesheet" href="style.css">
-  <script defer src="app.js"></script>
   <script src="//code.jquery.com/jquery-3.6.0.js"></script>
+  <script defer src="./app.js"></script>
   <script>
     $(document).ready(function(){
       //per info qmark1
@@ -33,6 +33,9 @@
         $("#qmark-label2").hide();
       });
 
+      $("#calendar").click(function(){
+        $("#corpo").load("/googlecalendar/calendar.php");
+      });
     });
   </script>
 </head>
@@ -46,7 +49,6 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
       <div class=" collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto">  
           <li class="nav-item my-2 d-flex align-items-center">
@@ -54,13 +56,13 @@
               <i id="theme_icon" class="fas fa-moon"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" aria-current="page" href="index.html">Home</a>
+            <a class="nav-link mx-2" aria-current="page" href="index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2" id="link-about" onclick="scrollSmoothTo('about')" href="#about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2" href="#">Calendario</a>
+            <a class="nav-link mx-2" href="./googlecalendar/calendar.php">Calendario</a>
           </li>
           <li class="nav-item my-2 d-flex align-items-center">
            <a class="nav-link mx-2 active btn btn-sapienza px-3" type="button" href="./login/login.html" ><i class="fa fa-sign-in fa-fw mr-2"></i> Login</a>
@@ -69,7 +71,8 @@
       </div>
     </div>
   </nav>  
-  <!-- nav end -->  
+  <!-- nav end -->
+  <div id="corpo">
   <header>
     <div class="container text-center">
       <div class="row m-4">
@@ -78,38 +81,29 @@
       </div>
     </div>
   </header>
-  <main>
-  <!-- form -->
-  <div class="container">
-    <form id="corsostudi-form" name="corsostudi-form" onsubmit="return validaFormUrl();" action="index.php" method="post" class="p-4 m-4 row shadow-sm rounded-3 border border-sottile text-font">
-      <div class="form-group col-md-4 my-2 ">
-        <label for="urlcorso">URL del calendario degli esami</label>
-        <img src="images/qmark.png" id="qmark" class="logo" alt="" height="20px" width="20px" style="margin-left: 5px;">
-        <style>label[for="qmark"]{font-size: 12px;}</style>
-        <label for="qmark" id="qmark-label"></label>
-        <input required autocomplete="off" id="urlcorso" name="urlcorso" type="url" class="form-control" placeholder="e.g., https://docs.google.com/spreadsheets/d...">
-      </div>
-      <div class="form-group col-md-4 my-2 ">
-        <label for="urltype">Tipo del file</label>
-        <br/>
-        <select name="urltype" id="urltype" class="form-select" >
-          <option value="vuoto" selected></option>  
-          <option value="sheet">Google Sheet</option>  
-          <option value="excel">Excel</option>  
-        </select>  
-      </div>
-      <div class="form-group mt-4">
-        <input type="submit" value="Aggiungi Esami Del Tuo Corso" class="btn btn-sapienza">
-      </div>
-    </form>
-
-    <form id="recipe-form" class="p-4 m-4 row shadow-sm rounded-3 border border-sottile text-font">
-      <div>
-        <img src="images/qmark.png" id="qmark2" class="logo" alt="" height="20px" width="20px" style="margin-left: 5px;">
-        <style>label[id="qmark-label2"]{font-size: 12px;}</style>
-        <label id="qmark-label2"></label>
-      </div>
-      <div class="form-group col-md-4 my-2 ">
+    <main>
+    <div class="container">
+      <!-- form -->
+      <form id="corsostudi-form" name="corsostudi-form" onsubmit="return validaFormUrl();" action="index.php" method="post" class="p-4 m-4 row shadow-sm rounded-3 border border-sottile text-font">
+        <div class="form-group col-md-4 my-2 ">
+          <label for="urlcorso">URL calendario esami</label>
+          <input required autocomplete="off" id="urlcorso" name="urlcorso" type="url" class="form-control auth-input" placeholder="e.g., https://docs.google.com/spreadsheets/d...">
+        </div>
+        <div class="form-group col-md-4 my-2 ">
+          <label for="urltype">Tipo del file</label>
+          <br/>
+          <select name="urltype" id="urltype" class="form-select auth-input" >
+            <option value="vuoto" selected></option>  
+            <option value="sheet">Google Sheet</option>  
+            <option value="excel">Excel</option>  
+          </select>  
+        </div>
+        <div class="form-group mt-4">
+          <input type="submit" value="Aggiungi calendario" class="btn btn-sapienza">
+        </div>
+      </form>
+      <form id="recipe-form" class="p-4 m-4 row shadow-sm rounded-3 border border-sottile text-font">
+        <div class="form-group col-md-4 my-2 ">
           <label for="esame">Esame</label>
           <input required autocomplete="off" type="text" id="esame" class="form-control auth-input" placeholder="e.g., Linguaggi e tecnologie per il web">
         </div>
@@ -137,39 +131,41 @@
           <input type="submit" value="Aggiungi Esame" class="btn btn-sapienza">
         </div>
       </form>
-    <!-- form end -->
-    <div class="container">
-      <div class="row m-4 border-bottom border-3 border-sottile">
-        <p class="h3 text-titolo">Esami salvati</p>
-      </div> 
-    </div>
-    <div class="row row-cols-1 row-cols-md-3 mx-4 my-6 text-center" id="recipe-container">
-    </div>
-  </div>
-</main>
-<br>
-  <br>
-  <section id="about">
-    <div class="container">
-    <div class="article__author">
-      <a href="https://github.com/BodePhase/sito-web-Calendario_Esami"><img src="./images/GitHub-Mark-Black.png" id="Github-logo" alt="Github logo" class="article__author--image"></a>
-      <div class="article__author--details text-bordo">
-        <h3>Linguaggi e tecnologie per il Web 2021/2022</h3>
-        <p><b>Massimiliano Favetta e Francesco Toccafondi</b></p>
-        <p >Progetto sviluppato per il corso di Linguaggi e tecnologie per il Web 2021/2022 del corso di laurea in Ingegneria Informatica e Automatica della Università di Roma La Sapienza.</p>    
+      <!-- form end -->
+
+      <div class="container">
+        <div class="row m-4 border-bottom border-3 border-sottile">
+          <p class="h3 text-titolo">Esami salvati</p>
+        </div>
+        
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 mx-4 my-6 text-center" id="recipe-container">
       </div>
     </div>
+    </main>
+  <br>
+  <br>
+  <section id="about">
+  <div class="container">
+  <div class="article__author">
+    <a href="https://github.com/BodePhase/sito-web-Calendario_Esami"><img src="./images/GitHub-Mark-Black.png" id="Github-logo" alt="Github logo" class="article__author--image"></a>
+    <div class="article__author--details text-bordo">
+      <h3>Linguaggi e tecnologie per il Web 2021/2022</h3>
+      <p><b>Massimiliano Favetta e Francesco Toccafondi</b></p>
+      <p >Progetto sviluppato per il corso di Linguaggi e tecnologie per il Web 2021/2022 del corso di laurea in Ingegneria Informatica e Automatica della Università di Roma La Sapienza.</p>    
     </div>
-  </section>
+  </div>
+</div>
+</section>
 
-  <!-- Footer -->
-  <footer>
+<!-- Footer -->
+<footer>
     <div class="text-center p-4 text-bordo">
       © Linguaggi e tecnologie per il Web 2021/2022 
      <div>
-  </footer>
+</footer>
 
-  </div>  
+</div>  
   <script type="text/javascript">
     function onThemeChange() {
         let cssStyleSheet = document.getElementById("mainStyle");
@@ -189,10 +185,14 @@
   </script>
   <!-- Bootstrap 5 JS-Bundle CDN import: -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+  
 <?php
+error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE); 
+
 //googlesheet
 require __DIR__ . '/googlesheets/quickstart/vendor/autoload.php';
+
+use Google\Service\CloudBuild\Warning;
 use Google\Service\Dfareporting\Resource\Files;
 //excel
 require './excel/vendor/autoload.php';
@@ -273,8 +273,7 @@ $spreadsheetId = $postUrl;
 $sheet_metadata = $service->spreadsheets->get($spreadsheetId);
 $sheets = $sheet_metadata->getSheets();
 $title = $sheets[0]->getProperties()->getTitle();
-$range = $title;
-echo $range;
+$range = $title; //per leggere l'intero sheet
 $response = $service->spreadsheets_values->get($spreadsheetId, $range);
 $values = $response->getValues();
 
@@ -294,11 +293,23 @@ if (empty($values)) {
     $controllo_header=false; //per cominciare ad acquisire valori dopo l'header del file
     //$to_insert=array();
     foreach ($values as $row) {
+      //inizializzazioni
           $line1=array();
           $line2=array();
           $line3=array();
+          $line1["esame"]=null;
+          $line2["esame"]=null;
+          $line3["esame"]=null;
+          $line1["posizione"]=null;
+          $line1["data_esame"]=null;
+          $line2["data_esame"]=null;
+          $line3["data_esame"]=null;
+          //per quelli che non hanno canale
+          $line1["canale"]=null;
+          $line2["canale"]=null;
+          $line3["canale"]=null;
         foreach ($row as $key=>$value) {
-          if($value=="PRIMO ANNO" || $value=="" || $value==null){
+          if($value=="PRIMO ANNO" || $value=="SECONDO ANNO" || $value=="TERZO ANNO" || $value=="" || $value==null){
             break;
           }
           
@@ -308,28 +319,28 @@ if (empty($values)) {
               $line2["esame"]=$value;
               $line3["esame"]=$value;
             }
-            elseif($key==$icanale){
+            if($key==$icanale){
               $line1["canale"]=$value;
               $line2["canale"]=$value;
               $line3["canale"]=$value;
             }
-            elseif($key==$iprof){
+            if($key==$iprof){
               $line1["professore"]=$value;
               $line2["professore"]=$value;
               $line3["professore"]=$value;
             }
-            elseif($key==$ipos){
+            if($key==$ipos){
               $line1["posizione"]=$value;
               $line2["posizione"]=$value;
               $line3["posizione"]=$value;
             }
-            elseif($key==$idata1){
+            if($key==$idata1){
               $line1["data_esame"]=$value;
             }
-            elseif($key==$idata2){
+            if($key==$idata2){
               $line2["data_esame"]=$value;
             }
-            elseif($key==$idata3){
+            if($key==$idata3){
               $line3["data_esame"]=$value;
             }
           }
@@ -337,14 +348,14 @@ if (empty($values)) {
             $iesame=$key;
             $fineheader=true;
           }
-          elseif($value=="CAN." || $value=="CAN" || $value=="CANALE"){
+          if($fineheader){
+          if($value=="CAN." || $value=="CAN" || $value=="CANALE"){
             $icanale=$key;
           }
-          elseif($value=="DOCENTE"){
+          if($value=="DOCENTE"){
             $iprof=$key;
           }
-          elseif($value=="DATA" || strpos($value,"MAG") || strpos($value,"GIU") ||
-                strpos($value,"LUG") || strpos($value,"SET")){
+          if($value=="DATA" || strpos($value,"MAGGIO")!=false || strpos($value,"GIUGNO")!=false || strpos($value,"LUGLIO")!=false || strpos($value,"SETTEMBRE")!=false){
             if($value=="DATA"){
               if($idata1==-1){
                 $idata1=$key;
@@ -357,10 +368,10 @@ if (empty($values)) {
               }
             }
             else{
-              if(strpos($value,"MAG") || strpos($value,"GIU")){
+              if(strpos($value,"MAGGIO")!=false || strpos($value,"GIUGNO")!=false){
                 $idata1=$key;
               }
-              elseif(strpos($value,"GIU")){
+              elseif(strpos($value,"LUGLIO")!=false){
                 $idata2=$key;
               }
               else{
@@ -371,16 +382,27 @@ if (empty($values)) {
           if($value=="AULA"){
             $ipos=$key;
           }
+        }
       }
       if($fineheader){
         $controllo_header=true;
       }
-      if($icanale==-1){
-        $line1["canale"]=null;
-        $line2["canale"]=null;
-        $line3["canale"]=null;
+      //controlli vari
+      if($line1["esame"]!=null && $line1["posizione"]==null){
+        $line1["posizione"]="da definire";
+        $line2["posizione"]="da definire";
+        $line3["posizione"]="da definire";
       }
-      if($line1!=null){
+      if($line1["esame"]!=null && $line1["data_esame"]==null){
+        $line1["data_esame"]="da definire";
+      }
+      if($line2["esame"]!=null && $line2["data_esame"]==null){
+        $line2["data_esame"]="da definire";
+      }
+      if($line3["esame"]!=null && $line3["data_esame"]==null){
+        $line3["data_esame"]="da definire";
+      }
+      if($line1["esame"]!=null){
         array_push($to_insert,$line1,$line2,$line3);
       }
     }
@@ -398,114 +420,141 @@ foreach ($tables as $table) {
 
   $values = $table->getRowsIterator();
   foreach ($values as $row) {
+    //inizializzazioni
     $line1=array();
-          $line2=array();
-          $line3=array();
-        foreach ($row as $key=>$value) {
-          if($value=="PRIMO ANNO" || $value=="" || $value==null){
-            break;
-          }
-          
-          if($controllo_header){
-            if($key==$iesame){
-              $line1["esame"]=$value;
-              $line2["esame"]=$value;
-              $line3["esame"]=$value;
-            }
-            elseif($key==$icanale){
-              $line1["canale"]=$value;
-              $line2["canale"]=$value;
-              $line3["canale"]=$value;
-            }
-            elseif($key==$iprof){
-              $line1["professore"]=$value;
-              $line2["professore"]=$value;
-              $line3["professore"]=$value;
-            }
-            elseif($key==$ipos){
-              $line1["posizione"]=$value;
-              $line2["posizione"]=$value;
-              $line3["posizione"]=$value;
-            }
-            elseif($key==$idata1){
-              $line1["data_esame"]=$value;
-            }
-            elseif($key==$idata2){
-              $line2["data_esame"]=$value;
-            }
-            elseif($key==$idata3){
-              $line3["data_esame"]=$value;
-            }
-          }
-          if($value=="INSEGNAMENTO"){
-            $iesame=$key;
-            $fineheader=true;
-          }
-          elseif($value=="CAN." || $value=="CAN" || $value=="CANALE"){
-            $icanale=$key;
-          }
-          elseif($value=="DOCENTE"){
-            $iprof=$key;
-          }
-          elseif($value=="DATA" || strpos($value,"MAG") || strpos($value,"GIU") ||
-                strpos($value,"LUG") || strpos($value,"SET")){
-            if($value=="DATA"){
-              if($idata1==-1){
-                $idata1=$key;
-              }
-              elseif($idata2==-1){
-                $idata2=$key;
-              }
-              else{
-                $idata3=$key;
-              }
-            }
-            else{
-              if(strpos($value,"MAG") || strpos($value,"GIU")){
-                $idata1=$key;
-              }
-              elseif(strpos($value,"GIU")){
-                $idata2=$key;
-              }
-              else{
-                $idata3=$key;
-              }
-            }
-          }
-          if($value=="AULA"){
-            $ipos=$key;
-          }
+    $line2=array();
+    $line3=array();
+    $line1["esame"]=null;
+    $line2["esame"]=null;
+    $line3["esame"]=null;
+    $line1["posizione"]=null;
+    $line1["data_esame"]=null;
+    $line2["data_esame"]=null;
+    $line3["data_esame"]=null;
+    //per quelli che non hanno canale
+    $line1["canale"]=null;
+    $line2["canale"]=null;
+    $line3["canale"]=null;
+  foreach ($row as $key=>$value) {
+    if($value=="PRIMO ANNO" || $value=="SECONDO ANNO" || $value=="TERZO ANNO" || $value=="" || $value==null){
+      break;
+    }
+    
+    if($controllo_header){
+      if($key==$iesame){
+        $line1["esame"]=$value;
+        $line2["esame"]=$value;
+        $line3["esame"]=$value;
       }
-      if($fineheader){
-        $controllo_header=true;
+      if($key==$icanale){
+        $line1["canale"]=$value;
+        $line2["canale"]=$value;
+        $line3["canale"]=$value;
       }
-      if($icanale==-1){
-        $line1["canale"]=null;
-        $line2["canale"]=null;
-        $line3["canale"]=null;
+      if($key==$iprof){
+        $line1["professore"]=$value;
+        $line2["professore"]=$value;
+        $line3["professore"]=$value;
       }
-      if($line1!=null){
-        array_push($to_insert,$line1,$line2,$line3);
+      if($key==$ipos){
+        $line1["posizione"]=$value;
+        $line2["posizione"]=$value;
+        $line3["posizione"]=$value;
       }
+      if($key==$idata1){
+        $line1["data_esame"]=$value;
+      }
+      if($key==$idata2){
+        $line2["data_esame"]=$value;
+      }
+      if($key==$idata3){
+        $line3["data_esame"]=$value;
+      }
+    }
+    if($value=="INSEGNAMENTO"){
+      $iesame=$key;
+      $fineheader=true;
+    }
+    if($fineheader){
+    if($value=="CAN." || $value=="CAN" || $value=="CANALE"){
+      $icanale=$key;
+    }
+    if($value=="DOCENTE"){
+      $iprof=$key;
+    }
+    if($value=="DATA" || strpos($value,"MAGGIO")!=false || strpos($value,"GIUGNO")!=false || strpos($value,"LUGLIO")!=false || strpos($value,"SETTEMBRE")!=false){
+      if($value=="DATA"){
+        if($idata1==-1){
+          $idata1=$key;
+        }
+        elseif($idata2==-1){
+          $idata2=$key;
+        }
+        else{
+          $idata3=$key;
+        }
+      }
+      else{
+        if(strpos($value,"MAGGIO")!=false || strpos($value,"GIUGNO")!=false){
+          $idata1=$key;
+        }
+        elseif(strpos($value,"LUGLIO")!=false){
+          $idata2=$key;
+        }
+        else{
+          $idata3=$key;
+        }
+      }
+    }
+    if($value=="AULA"){
+      $ipos=$key;
+    }
+  }
+}
+if($fineheader){
+  $controllo_header=true;
+}
+//controlli vari
+if($line1["esame"]!=null && $line1["posizione"]==null){
+  $line1["posizione"]="da definire";
+  $line2["posizione"]="da definire";
+  $line3["posizione"]="da definire";
+}
+if($line1["esame"]!=null && $line1["data_esame"]==null){
+  $line1["data_esame"]="da definire";
+}
+if($line2["esame"]!=null && $line2["data_esame"]==null){
+  $line2["data_esame"]="da definire";
+}
+if($line3["esame"]!=null && $line3["data_esame"]==null){
+  $line3["data_esame"]="da definire";
+}
+if($line1["esame"]!=null){
+  array_push($to_insert,$line1,$line2,$line3);
+}
   }
 }
   }
 
   //salvo su db
-$dbconn = pg_connect ( " host = localhost port =5432
-dbname = postgres user = postgres password = ltw2022 " )
+$dbconn = pg_connect ( " host = localhost port =5433
+dbname = postgres user = postgres password = password " )
 or die ( ' Could not connect : ' . pg_last_error ());
 foreach($to_insert as $v){
-$query = "INSERT INTO esami VALUES ('$v[esame]','$v[data_esame]','$v[posizione]','$v[professore]',$v[canale])";
+  try{
+$query = "INSERT INTO esami VALUES ('$v[esame]','$v[data_esame]','$v[posizione]','$v[professore]','$v[canale]')";
 $res = pg_query($query); 
 if (!$res) {
-  echo "error db\n";
+  //echo "error db\n";
 } 
+  }catch(Warning $w){
+    //do nothing
+  }
 }
 pg_close ( $dbconn );
 
-$dbconn = pg_connect ( " host = localhost port =5432
-dbname = postgres user = postgres password = ltw2022 " )
+/* $dbconn = pg_connect ( " host = localhost port =5433
+dbname = postgres user = postgres password = password " )
 or die ( ' Could not connect : ' . pg_last_error ());
 $query = ' SELECT * FROM esami ';
 $result = pg_query ( $query ) or die ( ' Query failed : ' . pg_last_error ());
@@ -520,13 +569,12 @@ echo " \t </ tr >\ n " ;
 }
 echo " </ table >\ n " ;
 pg_free_result ( $result );
-pg_close ( $dbconn );
+pg_close ( $dbconn ); */
 
 
 }
 
 ?>
-
 </body>
 
 </html>

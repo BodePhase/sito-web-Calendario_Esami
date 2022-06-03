@@ -1,7 +1,13 @@
 // Query Selectors
 const recipeForm = document.querySelector('#recipe-form');
+const corsoStudiForm = document.getElementById("corsostudi-form");
+//const urlcorso = document.getElementById("urlcorso");
+//const urltype = document.getElementById("urltype");
 const recipeContainer = document.querySelector('#recipe-container');
+const qmark = document.getElementById("#qmark");;
 let listItems = [];
+//dep
+//const reader = require("g-sheets-api");
 
 // FUNCTIONS
 function handleFormSubmit(e){
@@ -30,10 +36,10 @@ function displayRecipes(){
   const tempString = listItems.map(item => `
     <div class="col">
       <div class="card mb-4 rounded-3 shadow-sm border-sottile">
-        <div class="card-header py-3 text-white bg-primary border-sapienza">
+        <div class="card-header py-3 text-white border-sapienza">
           <h4 class="my-0">${item.esame}</h4>
         </div>
-        <div class="card-body">
+        <div class="card-body bg-esame">
           <ul class="text-start">
             <li><strong>Data: </strong>${item.data}</li>
             <li><strong>Posizione: </strong>${item.posizione}</li>
@@ -66,6 +72,17 @@ function deleteRecipeFromList(id){
   recipeContainer.dispatchEvent(new CustomEvent('refreshRecipes'));
 }
 
+
+function validaFormUrl(e){
+  e.preventDefault();
+  if(document.getElementById("urltype").value=="vuoto"){
+    alert("inserire tipo file non vuoto");
+    return false;
+  }
+  e.target.reset();
+  return true;
+}
+
 // EVENT LISTENERS
 recipeForm.addEventListener('submit', handleFormSubmit);
 recipeContainer.addEventListener('refreshRecipes', displayRecipes);
@@ -75,7 +92,8 @@ recipeContainer.addEventListener('click', (e) => {
   if(e.target.matches('.btn-outline-danger')){
     deleteRecipeFromList(Number(e.target.value));
   };
-})
+});
+
 
 
 
