@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "calendario-esami",
+  "private_key_id": "28213d4c056d66324e59d9371aacaa54d2edf8e2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDXuWSHB9oNAD1Q\nmcQ+ZePc3vNOuj9y17GjnUidiWsKCndEF+tx3fTGZI7YAZLxKEeQqAvIaMSE0uZg\nLAW3SVjOb7aQ+JHQZsYJkK4afRK9nM6tIcNSSPxdx81ZFM6IYxgmRJcFUL7EQVIC\nF3XMUXvQz3CLFSm2avw1jsdUkZaaMcQfpl1zoDcYeBF8GOdNuDo8cib4+XpZpzKb\n8gSoM+KYT4tUweB5fbKy8e6SQcd9XB9gl0hzOpaKu1URIkN7UOVtfZ/fq3cLsLOw\nef/A9AfvsphHKiZKdyil4jqshniT4FeSpk7gD17BPlNvwvPwQVUZyzAAcDXwXoM0\nsaq1WHtxAgMBAAECggEAJ8/4RI9nZ6TWrAxk0ls9jWK8Jphq40f5ace6QhC9Z3H9\nBt0fP7mF1iNy1VydANK9Om45Fnh3ZEgD6lXVjDkGIbsuR10IlByTiepgp1TT45iP\n8BXeFU6Q/MHGHR2g7DzVlSJteLapLlEb0HUB8X5MSoIuNAzo0Ni3yS6bjPj9gWE9\nBqPiK6WxDxVCzTj9iGL3iwqhV/0bxEocFQKLl+c5OffdA39YHjjS/tWmtnxbCyY+\nK46R0iAhIWHq42jI3VwYNg0ptxGM4WGqSFF0I9irov3OGG6B7pUZk+Rgy2kBqdD0\nNHge45o5L0rgGQ5ViXy1ftGLIVH1KfpWMn6rVcZ/jQKBgQD2+w19beytP2uxK3bo\nFg9gEo/Xm4YS9Fl/4TkUnL9RzskniYnM8tSUM+P5vF+jrNZJ/9llWIXdhigwrh68\ncSYwuGMRY9pX/S6MAxlCzhOH5vIfcbHHhfjESGHFzLry27S5z9Mv8RP5dhKd/+g8\nNCjtQ/hmPMAlusbYreYIOpePywKBgQDfmiHy2TwmCOsl/je6kZ/r9r5tBr8IzCaO\nBoD2bWSq1pUUSZ0LjkKmqbYFrjeeA9f+BTn5WyK3QBIcIA1dIODo8QQgNID3tgC2\nVbxrIv2imuRjc5DUgsX4px4Fa3NzM/+Mdasm+30VNm1Qekeqow0PpcFOacYQwtIv\njpZXxq3CMwKBgD0ILv424syxJmiiqACUKvp/u8H48bnPXiqGundIgNKzeevmRgI6\nY6O36vc0wKGOvWmN6ufrZzElzNqyvG+uulRBzGFovnUN4KnCvkRO7m6f+Gcizl7S\n0XWXuWmKvQv0lQVxwOtQ9LGpptIaggYWkaKIMGL7UjRAopC68GRKLlffAoGACH0Z\nfNayad88zhxwkSymHZcoc4smBXd6nzmv+6r7f2DWGAcTZzTnYtxehKiwg9cxg/s+\n0DCdiMdt6JNu7nIpF67OsUpM+xp1vHZUyNxzNJEcyonAndC5I0903E/P+jenI/Xz\noW86uGtwivWZcujtvgJU7F0nn8tFn3iSTJLGVfECgYEA3nk8hzFAdXppGdxGWMuY\nqEDyF2O2C1I5d/vD1wZpN+X6lNg0HTwM8xtMkYScsyifrCYKaoNKqTlU7Qnj/aR6\nDVgDd4rHMisOEd9yF6A74cX98mS5LlsiQuC4wiPWbxkjoc/IzjaTnNhcXnL5Vb6S\n4wiMyxwKv6mWJm2xxbnBrbs=\n-----END PRIVATE KEY-----\n",
+  "client_email": "calendario-esami@calendario-esami.iam.gserviceaccount.com",
+  "client_id": "112805255551188863278",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/calendario-esami%40calendario-esami.iam.gserviceaccount.com"
+}
